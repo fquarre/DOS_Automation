@@ -1,6 +1,9 @@
 @echo off
 
-REM Google DNS
+GOTO hardCoded
+
+:programmed
+:: Google DNS
 set DNS1=8.8.8.8
 set DNS2=8.8.4.4
 
@@ -13,3 +16,10 @@ for /f "tokens=1,2,3*" %%i in ('netsh int show interface') do (
 )
 
 ipconfig /flushdns
+
+:hardCoded
+netsh interface ip set dns name="Wi-Fi" static 8.8.8.8 primary validate=no
+netsh interface ip add dns name="Wi-Fi"  8.8.8.4 index=2 validate=no
+ipconfig /flushdns
+
+exit
